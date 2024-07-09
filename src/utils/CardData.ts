@@ -1,4 +1,5 @@
 import adminLogo from "@/assets/logo.png";
+import { IconType } from "react-icons";
 import {
   SiExpress,
   SiGithub,
@@ -8,6 +9,12 @@ import {
   SiNodedotjs,
   SiReact,
 } from "react-icons/si";
+
+export type SocialIconType = {
+  name: string;
+  icon: IconType;
+  link: string;
+};
 
 export const IdentityCardData = [
   {
@@ -27,7 +34,7 @@ export const IdentityCardData = [
   },
 ];
 
-export const socialIcons = [
+export const socialIcons: SocialIconType[] = [
   {
     name: "Github",
     icon: SiGithub,

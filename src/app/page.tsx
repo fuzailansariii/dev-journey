@@ -1,14 +1,8 @@
 import IdentityCard from "@/components/IdentityCard";
 import { IdentityCardData, socialIcons } from "@/utils/CardData";
 import Link from "next/link";
-import { IconType } from "react-icons";
 
-type SocialIconType = {
-  name: string;
-  icons: IconType;
-  link: string;
-};
-const Home: React.FC<SocialIconType> = () => {
+const Home: React.FC = () => {
   return (
     <div className="md:max-w-screen-xl md:mx-auto md:flex md:justify-between md:gap-x-3 my-8 items-center">
       <div className="md:w-1/2 flex items-center md:h-[80vh] h-[50vh]">
