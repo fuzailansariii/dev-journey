@@ -14,7 +14,8 @@ const Home: React.FC<SocialIconType> = () => {
       <div className="md:w-1/2 flex items-center md:h-[80vh] h-[50vh]">
         <div className="px-5 text-left">
           <h1 className="font-quicksand text-5xl font-semibold text-gray-800">
-            Hi, I'm <span className="text-red-800">FUZAIL</span>
+            {"Hi, I'm "}
+            <span className="text-red-800">FUZAIL</span>
           </h1>
           <h2 className="font-poppins text-2xl ">
             Full-Stack Developer & Designer
@@ -27,9 +28,8 @@ const Home: React.FC<SocialIconType> = () => {
           </p>
           <div className="flex space-x-5 text-3xl mt-3 justify-center md:justify-start">
             {socialIcons.map(({ icon: Icon, name, link }, index) => (
-              <div className="cursor-pointer text-gray-800">
+              <div key={index} className="cursor-pointer text-gray-800">
                 <Link
-                  key={index}
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
