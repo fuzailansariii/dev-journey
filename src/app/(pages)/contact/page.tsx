@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactSchema } from "@/schemas/contactUsSchema";
+import { contactSchema } from "@/schemas/contactusSchema";
 import * as z from "zod";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -25,7 +25,7 @@ function Contact() {
   } = useForm();
 
   const form = useForm<z.infer<typeof contactSchema>>({
-    resolver: zodResolver,
+    resolver: zodResolver(contactSchema),
     defaultValues: {
       username: "",
       email: "",
