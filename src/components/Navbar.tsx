@@ -19,15 +19,15 @@ export default function Navbar() {
     <>
       <div className="sticky top-0 z-50 bg-white shadow-md">
         <div className="flex items-center justify-between sm:justify-evenly px-6 py-4">
-          <h1 className="sm:text-xl font-nunito font-bold">
+          <h1 className="sm:text-xl font-nunito font-bold hover:text-red-600 transition-colors duration-300">
             <Link href="/">{"<DevJourney />"}</Link>
           </h1>
 
-          <nav className="flex gap-10 font-nunito font-semibold">
+          <nav className="flex gap-10 font-nunito font-semibold ">
             {menuItems.map((menu, index) => (
               <div
                 key={index}
-                className="hidden sm:block sm:text-lg cursor-pointer"
+                className="hidden sm:block sm:text-lg cursor-pointer hover:text-red-600 transition-colors duration-300"
               >
                 <Link href={menu.link}>{menu.title}</Link>
               </div>
@@ -39,7 +39,7 @@ export default function Navbar() {
           </div>
           <div className="items-center font-quicksand hidden sm:block">
             {isSignUpPage ? (
-              <div className="flex justify-center items-center gap-5">
+              <div className="flex justify-center items-center gap-5 ">
                 <p>Already a member? </p>
                 <Link
                   href="/sign-in"

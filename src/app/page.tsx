@@ -14,7 +14,7 @@ const Home: React.FC<SocialIconType> = () => {
       <div className="md:w-1/2 flex items-center md:h-[80vh] h-[50vh]">
         <div className="px-5 text-left">
           <h1 className="font-quicksand text-5xl font-semibold text-gray-800">
-            Hi, I'm FUZAIL
+            Hi, I'm <span className="text-red-800">FUZAIL</span>
           </h1>
           <h2 className="font-poppins text-2xl ">
             Full-Stack Developer & Designer
