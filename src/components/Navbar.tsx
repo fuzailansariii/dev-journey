@@ -3,11 +3,13 @@ import { HamburgerMenuIcon, Cross2Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
   const pathname = usePathname();
   const isSignUpPage = pathname === "/sign-up";
+  const router = useRouter();
 
   // Array of menu items for the navigation bar
   const menuItems = [
@@ -21,18 +23,22 @@ export default function Navbar() {
   const menuHandler = () => {
     setIsOpen(!isOpen);
   };
-  const menuCloseHandler = () => {
-    setIsOpen(false);
-  };
+  useEffect(() => {
+    const menuCloseHandler = () => {
+      setIsOpen(false);
+    };
+    router.events.on("routeChangeStart", menuCloseHandler);
+    return () => {
+      router.events.off("routeChangeStart", menuCloseHandler);
+    };
+  }, [router.events]);
 
   return (
     <>
       <div className="sticky top-0 z-50 bg-white shadow-md">
         <div className="flex items-center justify-between sm:justify-evenly px-6 py-4">
           <h1 className="sm:text-xl font-nunito font-bold hover:text-red-600 transition-colors duration-300">
-            <Link href="/" onClick={menuCloseHandler}>
-              {"<DevJourney />"}
-            </Link>
+            <Link href="/">{"<DevJourney />"}</Link>
           </h1>
 
           <nav className="flex gap-10 font-nunito font-semibold ">
@@ -88,11 +94,7 @@ export default function Navbar() {
           <nav className="sm:hidden flex flex-col items-center py-5 gap-y-4 font-poppins">
             {menuItems.map((menu, index) => (
               <div key={index}>
-                <Link
-                  href={menu.link}
-                  className="text-lg"
-                  onClick={menuCloseHandler}
-                >
+                <Link href={menu.link} className="text-lg">
                   {menu.title}
                   <Separator />
                 </Link>
