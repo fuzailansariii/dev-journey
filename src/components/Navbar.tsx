@@ -30,7 +30,9 @@ export default function Navbar() {
       <div className="sticky top-0 z-50 bg-white shadow-md">
         <div className="flex items-center justify-between sm:justify-evenly px-6 py-4">
           <h1 className="sm:text-xl font-nunito font-bold hover:text-red-600 transition-colors duration-300">
-            <Link href="/">{"<DevJourney />"}</Link>
+            <Link href="/" onClick={menuCloseHandler}>
+              {"<DevJourney />"}
+            </Link>
           </h1>
 
           <nav className="flex gap-10 font-nunito font-semibold ">
