@@ -1,8 +1,9 @@
 "use client";
-import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { HamburgerMenuIcon, Cross2Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -14,6 +15,15 @@ export default function Navbar() {
     { title: "About", link: "/about" },
     { title: "Resume", link: "/resume" },
   ];
+
+  // mobile menu control
+  const [isOpen, setIsOpen] = useState(false);
+  const menuHandler = () => {
+    setIsOpen(!isOpen);
+  };
+  const menuCloseHandler = () => {
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -35,7 +45,17 @@ export default function Navbar() {
           </nav>
 
           <div className="sm:hidden block">
-            <HamburgerMenuIcon className="w-[1.7rem] h-[1.7rem]" />
+            {isOpen ? (
+              <Cross2Icon
+                className="w-[1.7rem] h-[1.7rem]"
+                onClick={menuHandler}
+              />
+            ) : (
+              <HamburgerMenuIcon
+                className="w-[1.7rem] h-[1.7rem]"
+                onClick={menuHandler}
+              />
+            )}
           </div>
           <div className="items-center font-quicksand hidden sm:block">
             {isSignUpPage ? (
@@ -62,6 +82,22 @@ export default function Navbar() {
           </div>
         </div>
         <Separator />
+        {isOpen && (
+          <nav className="sm:hidden flex flex-col items-center py-5 gap-y-4 font-poppins">
+            {menuItems.map((menu, index) => (
+              <div key={index}>
+                <Link
+                  href={menu.link}
+                  className="text-lg"
+                  onClick={menuCloseHandler}
+                >
+                  {menu.title}
+                  <Separator />
+                </Link>
+              </div>
+            ))}
+          </nav>
+        )}
       </div>
     </>
   );
