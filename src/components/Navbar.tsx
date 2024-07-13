@@ -3,13 +3,11 @@ import { HamburgerMenuIcon, Cross2Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
   const isSignUpPage = pathname === "/sign-up";
-  const router = useRouter();
 
   // Array of menu items for the navigation bar
   const menuItems = [
@@ -23,15 +21,11 @@ export default function Navbar() {
   const menuHandler = () => {
     setIsOpen(!isOpen);
   };
+
+  // Close the menu when the route changes
   useEffect(() => {
-    const menuCloseHandler = () => {
-      setIsOpen(false);
-    };
-    router.events.on("routeChangeStart", menuCloseHandler);
-    return () => {
-      router.events.off("routeChangeStart", menuCloseHandler);
-    };
-  }, [router.events]);
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <>
