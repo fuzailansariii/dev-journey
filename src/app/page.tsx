@@ -1,4 +1,5 @@
 import IdentityCard from "@/components/IdentityCard";
+import { OrbitingSkills } from "@/components/OrbitingSkills";
 import { IdentityCardData, socialIcons } from "@/utils/CardData";
 import Link from "next/link";
 
@@ -37,17 +38,8 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="">
-        {IdentityCardData.map((data, index) => (
-          <IdentityCard
-            key={index}
-            image={data.image}
-            title={data.title}
-            name={data.name}
-            email={data.email}
-            icons={data.techIcons}
-          />
-        ))}
+      <div className="md:w-1/2">
+        <OrbitingSkills />
       </div>
     </div>
   );
