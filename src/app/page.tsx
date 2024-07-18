@@ -1,6 +1,6 @@
-import IdentityCard from "@/components/IdentityCard";
+"use client";
 import { OrbitingSkills } from "@/components/OrbitingSkills";
-import { IdentityCardData, socialIcons } from "@/utils/CardData";
+import { socialIcons } from "@/utils/CardData";
 import Link from "next/link";
 
 const Home: React.FC = () => {
@@ -22,14 +22,13 @@ const Home: React.FC = () => {
             technologies including Next.js, React, and Tailwind CSS.
           </p>
           <div className="flex space-x-5 text-3xl mt-3 justify-center md:justify-start">
-            {socialIcons.map(({ icon: Icon, name, link }, index) => (
+            {socialIcons.map(({ icon: Icon, socialIconlink }, index) => (
               <div key={index} className="cursor-pointer text-gray-800">
                 <Link
-                  href={link}
+                  href={socialIconlink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="cursor-pointer text-gray-800 hover:text-red-500 transition-colors duration-300"
-                  title={name}
                 >
                   <Icon />
                 </Link>
