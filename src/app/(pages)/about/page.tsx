@@ -49,7 +49,7 @@ function About() {
         </div>
       </div>
 
-      <div className="">
+      <div className="m-5">
         <h1 className="font-quicksand font-bold text-3xl my-2 py-2">
           Projects
           <Separator />
