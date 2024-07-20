@@ -67,7 +67,6 @@ function About() {
           ))}
         </div>
       </div>
-      <Separator />
     </div>
   );
 }
