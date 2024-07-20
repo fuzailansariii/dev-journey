@@ -9,7 +9,7 @@ export default function ProjectList({
   icons,
 }: ProjectsType) {
   return (
-    <div className="mx-3 px-2 py-4 border rounded-md shadow-md">
+    <div className="mx-3 px-4 py-4 border rounded-md shadow-md">
       <h1 className="text-xl font-bold text-gray-800 mb-2">
         <Link
           href={projectLink}
@@ -18,8 +18,8 @@ export default function ProjectList({
           {title}
         </Link>
       </h1>
-      <p className="text-gray-600 mb-2">{description}</p>
-      <div className="flex space-x-4">
+      <p className="text-gray-600 mb-2 px-3">{description}</p>
+      <div className="flex space-x-4 px-3">
         {icons.map((TechIcon, i) => (
           <TechIcon
             key={i}

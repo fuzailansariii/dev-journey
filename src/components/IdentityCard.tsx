@@ -10,7 +10,7 @@ const IdentityCard: React.FC<IdentityCardType> = ({
   image,
 }) => {
   return (
-    <div className="p-6 m-10 border rounded-xl shadow-lg flex flex-col items-center bg-white">
+    <div className="mx-5 py-8 px-3 border rounded-xl shadow-lg flex flex-col items-center bg-white">
       <div className="mb-4">
         <Image
           src={image}
