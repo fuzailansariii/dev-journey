@@ -1,7 +1,22 @@
-import React from "react";
+// code will change after testing. will make another UI
 
-function SignIn() {
-  return <div>SignIn</div>;
+"use client";
+import { useSession, signIn, signOut } from "next-auth/react";
+
+export default function Component() {
+  const { data: session } = useSession();
+  if (session) {
+    return (
+      <>
+        Signed in as {session.user.email} <br />
+        <button onClick={() => signOut()}>Sign out</button>
+      </>
+    );
+  }
+  return (
+    <>
+      Not signed in <br />
+      <button onClick={() => signIn()}>Sign in</button>
+    </>
+  );
 }
-
-export default SignIn;
