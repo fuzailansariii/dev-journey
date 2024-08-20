@@ -36,14 +36,14 @@ export const ProjectDetails: ProjectsType[] = [
     title: "LinkedIn UI Clone",
     description:
       "A functional clone of the LinkedIn interface with features such as login, signup, posting, and profile management. Built using ReactJS, TailwindCSS, and Firebase",
-    projectLink: "/",
+    projectLink: "https://linkedin-clone-beryl-five.vercel.app/",
     icons: [SiReact, SiTailwindcss, SiFirebase],
   },
   {
     title: "Food Recipe App",
     description:
       "Discover a variety of delicious recipes from around the world. Easily search by ingredients or dietary preferences. Perfect for all cooking levels, from beginners to experts",
-    projectLink: "/",
+    projectLink: "https://my-kitchen-recipes.vercel.app/",
     icons: [SiReact, SiTailwindcss],
   },
 ];
