@@ -1,7 +1,10 @@
 import React from "react";
 
-function SignUp() {
-  return <div>SignUp</div>;
+export default function SignUp() {
+  return (
+    <div>
+      <h1>Sign Up</h1>
+      <p>Backend is not implemented</p>
+    </div>
+  );
 }
-
-export default SignUp;

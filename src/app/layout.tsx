@@ -3,7 +3,6 @@ import { Nunito, Poppins, Quicksand } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import AuthProvider from "@/context/AuthProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -33,15 +32,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <AuthProvider>
-        <body
-          className={`${poppins.variable} ${nunito.variable} ${quicksand.variable}`}
-        >
-          <Navbar />
-          {children}
-          <Footer />
-        </body>
-      </AuthProvider>
+      <body
+        className={`${poppins.variable} ${nunito.variable} ${quicksand.variable}`}
+      >
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
