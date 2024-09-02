@@ -10,8 +10,11 @@ import { z } from "zod";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 export default function SignIn() {
+  const [isSubmittingForm, setIsSubmittingForm] = useState(false);
   const router = useRouter();
 
   const {
@@ -25,6 +28,7 @@ export default function SignIn() {
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
     // console.log(data);
+    setIsSubmittingForm(true);
     const result = await signIn("credentials", {
       redirect: false,
       email: data.email,
@@ -37,10 +41,12 @@ export default function SignIn() {
         toast.error("Login Failed");
       } else {
         toast.error("An unknown error occurred.");
+        setIsSubmittingForm(false);
       }
     } else if (result?.ok) {
-      toast("Login successfull");
+      toast.success("Login successfull");
       router.replace("/home");
+      setIsSubmittingForm(false);
     }
     reset();
   };
@@ -80,10 +86,17 @@ export default function SignIn() {
           </div>
           <div className="mt-5">
             <Button
-              disabled={isSubmitting}
+              disabled={isSubmittingForm}
               className="w-full text-base cursor-pointer"
             >
-              Submit
+              {isSubmittingForm ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+                </>
+              ) : (
+                "Sign Up"
+              )}
             </Button>
           </div>
         </form>

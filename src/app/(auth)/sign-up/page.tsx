@@ -67,7 +67,7 @@ export default function SignUp() {
       toast.success("Registration Successfull, Please verify your email.");
       reset();
       // console.log(response.data);
-      router.push(`/verify?${username}`);
+      router.push(`/verify?username=${username}`);
       setIsSubmittingForm(false);
     } catch (error: any) {
       console.error("Frontend Error during registration: ", error);
@@ -142,7 +142,6 @@ export default function SignUp() {
               ) : (
                 "Sign Up"
               )}
-              Submit
             </Button>
           </div>
         </form>
