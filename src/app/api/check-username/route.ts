@@ -9,9 +9,11 @@ const UsernameQuerySchema = z.object({
 
 export async function GET(request: NextRequest) {
   try {
-    const usernameParam = request.nextUrl.searchParams.get("username");
-    const result = UsernameQuerySchema.safeParse({ username: usernameParam });
+    const urlParam = request.nextUrl;
+    const usernameParam = urlParam.searchParams.get("username");
     // console.log("Username Param data: ", result.data);
+
+    const result = UsernameQuerySchema.safeParse({ username: usernameParam });
 
     if (!result.success) {
       const usernameError = result.error.format().username?._errors || [];
