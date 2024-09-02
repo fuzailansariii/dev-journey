@@ -67,7 +67,7 @@ export default function Navbar() {
                   href="/sign-in"
                   className="px-3 py-2 rounded-md bg-gray-800 text-white hover:bg-opacity-90 font-semibold"
                 >
-                  Login
+                  Sign In
                 </Link>
               </div>
             ) : (
@@ -77,7 +77,7 @@ export default function Navbar() {
                   href="/sign-up"
                   className="px-3 py-2 rounded-md bg-gray-800 text-white hover:bg-opacity-90 font-semibold"
                 >
-                  Join us
+                  Sign Up
                 </Link>
               </div>
             )}

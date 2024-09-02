@@ -7,10 +7,10 @@ export default function VerificationEmail({
   name,
   verificationCode,
 }: VerificationEmailProp) {
-  console.log("Rendering verification email,", { name, verificationCode });
+  // console.log("Rendering verification email,", { name, verificationCode });
 
   const verificationLink = `${process.env.BASE_URL}/verify-email?token=${verificationCode}`;
-  console.log(verificationCode);
+  // console.log(verificationCode);
 
   return (
     <div className="bg-gray-100 py-8 px-4">

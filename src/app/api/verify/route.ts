@@ -1,13 +1,24 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { error } from "console";
 
 export async function POST(request: Request) {
   try {
-    const { email, verificationCode } = await request.json();
+    const { username, verificationCode } = await request.json();
+
+    // console.log("Recived username: ", username);
+
+    if (!username) {
+      console.error("Username is null or undefined.");
+      return NextResponse.json(
+        {
+          message: "Username is required.",
+        },
+        { status: 400 }
+      );
+    }
 
     const user = await prisma.user.findUnique({
-      where: { email: email },
+      where: { username },
     });
 
     if (!user) {
@@ -27,7 +38,7 @@ export async function POST(request: Request) {
     if (isValidVerificationCode && isVerificationCodeNotExpired) {
       await prisma.user.update({
         where: {
-          email: user.email,
+          username: user.username,
         },
         data: {
           isVerified: true,

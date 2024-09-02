@@ -6,20 +6,26 @@ export { default } from "next-auth/middleware";
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
   const url = request.nextUrl;
+
+  // console.log("Token Recived:", token);
+
+  // Redirect authenticated users away from auth pages
   if (
     token &&
-    (url.pathname.startsWith("/sign-in") ||
-      url.pathname.startsWith("/sign-up") ||
-      url.pathname.startsWith("/verify"))
+    (url.pathname.startsWith("/sign-in") || url.pathname.startsWith("/sign-up"))
   ) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/home", request.url));
   }
-  if (!token && url.pathname.startsWith("/dashboard")) {
+
+  // Redirect unauthenticated users away from protected pages
+  if (!token && url.pathname.startsWith("/home")) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
+
+  return NextResponse.next(); // Allow the request to continue for other pages
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/sign-in", "/sign-up", "/dashboard/:path*", "/verify/:path*"],
+  matcher: ["/sign-in", "/sign-up", "/home/:path*", "/verify/:path*"],
 };

@@ -3,22 +3,42 @@ import bcrypt from "bcrypt";
 import { signUpSchema } from "@/schemas/signupSchema";
 import { SendVerificationEmail } from "@/helpers/SendVerificationEmail";
 import toast from "react-hot-toast";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const parsedBody = signUpSchema.parse(body);
-    const { name, email, password } = parsedBody;
+    const { username, email, password } = parsedBody;
+
+    const verifiedExistingUsername = await prisma.user.findUnique({
+      where: {
+        username,
+        isVerified: true,
+      },
+    });
+
+    if (verifiedExistingUsername) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Username is already taken",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
 
     const existingUserByEmail = await prisma.user.findUnique({
-      where: { email: email },
+      where: { email },
     });
     const verificationCode = Math.floor(
       100000 + Math.random() * 900000
     ).toString();
     if (existingUserByEmail) {
       if (existingUserByEmail.isVerified) {
-        return Response.json(
+        return NextResponse.json(
           {
             success: false,
             message: "User already exist with this email",
@@ -41,7 +61,7 @@ export async function POST(request: Request) {
 
       await prisma.user.create({
         data: {
-          name,
+          username,
           email,
           password: hashedPassword,
           isVerified: false,
@@ -53,13 +73,13 @@ export async function POST(request: Request) {
 
     // sending verification email.
     const emailResponse = await SendVerificationEmail(
-      name,
+      username,
       email,
       verificationCode
     );
-    console.log(emailResponse);
+    // console.log(emailResponse);
     if (!emailResponse.success) {
-      return Response.json(
+      return NextResponse.json(
         {
           success: false,
           message: emailResponse.message,
@@ -67,7 +87,7 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
-    return Response.json(
+    return NextResponse.json(
       {
         success: true,
         message: "User registered successfully, Please verify your email.",
@@ -77,10 +97,10 @@ export async function POST(request: Request) {
   } catch (error) {
     console.log("Error during registration. ", error);
     toast.error("Error during registration.");
-    return Response.json(
+    return NextResponse.json(
       {
         success: false,
-        messag: "Error during registration.",
+        message: "Error during registration.",
         error: error,
       },
       { status: 500 }

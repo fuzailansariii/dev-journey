@@ -7,11 +7,11 @@ export async function SendVerificationEmail(
   name: string,
   verificationCode: string
 ): Promise<ApiResponse> {
-  console.log("This is sendVerificationEmail: ", {
-    email,
-    name,
-    verificationCode,
-  });
+  // console.log("This is sendVerificationEmail: ", {
+  //   email,
+  //   name,
+  //   verificationCode,
+  // });
   try {
     await resend.emails.send({
       from: "onboarding@resend.dev",
