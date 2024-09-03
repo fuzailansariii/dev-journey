@@ -5,14 +5,12 @@ export async function POST(request: Request) {
   try {
     const { username, verificationCode } = await request.json();
 
-    // console.log("Recived username: ", username);
+    console.log("Recived username: ", username);
+    console.log("Recived VerificationCode: ", verificationCode);
 
-    if (!username) {
-      console.error("Username is null or undefined.");
+    if (!username || !verificationCode) {
       return NextResponse.json(
-        {
-          message: "Username is required.",
-        },
+        { message: "Username and verification code are required." },
         { status: 400 }
       );
     }
@@ -42,7 +40,7 @@ export async function POST(request: Request) {
         },
         data: {
           isVerified: true,
-          verificationCode: "",
+          verificationCode: null,
         },
       });
 
@@ -66,8 +64,8 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-  } catch (error) {
-    console.log("Error verifying code.");
+  } catch (error: any) {
+    console.log("Error verifying code.", error.message);
     return NextResponse.json(
       {
         message: "An error occured during verification",

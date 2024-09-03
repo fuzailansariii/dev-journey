@@ -23,7 +23,7 @@ export default function SignUp() {
   const [isSubmittingForm, setIsSubmittingForm] = useState(false);
 
   const [debouncedUsername] = useDebounce(username, 300);
-
+  // TODO: i have to check the username on every 300.
   useEffect(() => {
     const checkingUsername = async () => {
       if (debouncedUsername) {

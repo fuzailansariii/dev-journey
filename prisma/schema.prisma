@@ -19,7 +19,7 @@ model User {
   email                  String   @unique
   password               String
   isVerified             Boolean  @default(false)
-  verificationCode       String   @unique
+  verificationCode       String?
   verificationCodeExpiry DateTime
   createdAt              DateTime @default(now())
 }
