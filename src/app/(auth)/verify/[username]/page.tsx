@@ -1,4 +1,8 @@
 "use client";
+
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { verifySchema } from "@/schemas/verificationCodeSchema";
@@ -6,17 +10,15 @@ import { ApiResponse } from "@/types/ApiResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-export default function page() {
+export default function VerifyEmail() {
   const router = useRouter();
+  const param = useParams<{ username: string }>();
   const [isVerifing, setIsVerifying] = useState(false);
-  const searchParams = useSearchParams();
-  const usernameParam = searchParams.get("username");
+  // const searchParams = useSearchParams();
+  // const usernameParam = searchParams.get("username");
 
   const { register, handleSubmit, reset } = useForm<
     z.infer<typeof verifySchema>
@@ -25,13 +27,13 @@ export default function page() {
   });
 
   const onSubmit = async (data: z.infer<typeof verifySchema>) => {
-    const code = data.VerificationCode;
-    setIsVerifying(true);
+    // const code = data.VerificationCode;
     try {
-      const response = await axios.post("/api/verify", {
-        username: usernameParam,
-        verificationCode: code,
+      const response = await axios.post(`/api/verify`, {
+        username: param.username,
+        verificationCode: data.VerificationCode,
       });
+      // console.log(response.data)
       toast.success("Code is verified.");
       reset();
       router.replace("/sign-in");
@@ -42,8 +44,6 @@ export default function page() {
         axiosError.response?.data.message || "Registration failed";
       toast.error(errorMessage);
       console.log(axiosError.response?.data.message);
-    } finally {
-      setIsVerifying(false);
     }
   };
 

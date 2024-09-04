@@ -8,7 +8,6 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios, { AxiosError } from "axios";
-import { NextResponse } from "next/server";
 import { ApiResponse } from "@/types/ApiResponse";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -22,8 +21,8 @@ export default function SignUp() {
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmittingForm, setIsSubmittingForm] = useState(false);
 
-  const [debouncedUsername] = useDebounce(username, 300);
-  // TODO: i have to check the username on every 300.
+  const [debouncedUsername] = useDebounce(username, 1000);
+
   useEffect(() => {
     const checkingUsername = async () => {
       if (debouncedUsername) {
@@ -37,13 +36,11 @@ export default function SignUp() {
           // console.log("API response:", response.data);
           setUsernameMessage(response.data.message);
         } catch (error: any) {
-          if (axios.isAxiosError(error)) {
-            console.error("Axios error response:", error.response?.data);
-          } else {
-            console.error("Non-Axios error:", error);
-          }
-          toast.error("Registration failed.");
-          return NextResponse.json({ success: false, message: error.message });
+          const axiosError = error as AxiosError<ApiResponse>;
+          setUsernameMessage(
+            axiosError.response?.data.message ?? "Error checking username"
+          );
+          toast.error("Error checking username.");
         } finally {
           setIsCheckingUsername(false);
         }
@@ -67,12 +64,14 @@ export default function SignUp() {
       toast.success("Registration Successfull, Please verify your email.");
       reset();
       // console.log(response.data);
-      router.push(`/verify?username=${username}`);
+      router.replace(`/verify/${data.username}`);
       setIsSubmittingForm(false);
     } catch (error: any) {
-      console.error("Frontend Error during registration: ", error);
-      toast.error("Registration failed.");
-      return NextResponse.json({ success: false, message: error.message });
+      console.error("Error during registration: ", error);
+      const axiosError = error as AxiosError<ApiResponse>;
+      let errorMessage = axiosError.response?.data.message;
+      ("There was a problem with your sign-up. Please try again.");
+      toast.error("Sign up failed.");
     } finally {
       setIsSubmittingForm(false);
     }

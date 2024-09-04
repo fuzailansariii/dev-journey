@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { validUserame } from "@/schemas/signupSchema";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 const UsernameQuerySchema = z.object({
@@ -9,13 +9,16 @@ const UsernameQuerySchema = z.object({
 
 export async function GET(request: NextRequest) {
   try {
-    const usernameParam = request.nextUrl.searchParams.get("username");
-    const result = UsernameQuerySchema.safeParse({ username: usernameParam });
+    // const usernameParam = request.nextUrl.searchParams.get("username");
     // console.log("Username Param data: ", result.data);
+
+    const { searchParams } = new URL(request.url);
+    const queryParam = { username: searchParams.get("username") };
+    const result = UsernameQuerySchema.safeParse(queryParam);
 
     if (!result.success) {
       const usernameError = result.error.format().username?._errors || [];
-      return Response.json(
+      return NextResponse.json(
         {
           success: false,
           message:
@@ -34,7 +37,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (verifiedExistingUsername) {
-      return Response.json(
+      return NextResponse.json(
         {
           success: false,
           message: "Username is already taken",
@@ -43,13 +46,13 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    return Response.json(
+    return NextResponse.json(
       { success: true, message: "Username is availble" },
       { status: 200 }
     );
   } catch (error) {
     console.error("Error Checking Username: ", error);
-    return Response.json(
+    return NextResponse.json(
       {
         success: false,
         message: "Error checking username.",
