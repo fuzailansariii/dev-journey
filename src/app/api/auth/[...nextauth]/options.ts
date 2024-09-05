@@ -57,7 +57,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token._id = user._id?.toString();
-        token.name = user.name;
+        token.username = user.username;
         token.isVerified = user.isVerified;
       }
       return token;
@@ -66,7 +66,7 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user._id = token._id;
         session.user.isVerified = token.isVerified;
-        session.user.name = token.name;
+        session.user.username = token.username;
       }
       return session;
     },

@@ -1,13 +1,20 @@
 "use client";
-import { HamburgerMenuIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { HamburgerMenuIcon, Cross2Icon, ExitIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { signOut, useSession } from "next-auth/react";
+import { User } from "next-auth";
 
 export default function Navbar() {
+  // const pathname = usePathname();
+  // const isSignUpPage = pathname === "/sign-up";
+
+  const { data: session } = useSession();
+  const user: User = session?.user as User;
+
   const pathname = usePathname();
-  const isSignUpPage = pathname === "/sign-up";
 
   // Array of menu items for the navigation bar
   const menuItems = [
@@ -35,6 +42,7 @@ export default function Navbar() {
             <Link href="/">{"<DevJourney />"}</Link>
           </h1>
 
+          {/* Desktop menu */}
           <nav className="flex gap-10 font-nunito font-semibold ">
             {menuItems.map((menu, index) => (
               <div
@@ -59,30 +67,46 @@ export default function Navbar() {
               />
             )}
           </div>
+
+          {/* User Sign-in and Sign-up Button */}
           <div className="items-center font-quicksand hidden sm:block">
-            {isSignUpPage ? (
-              <div className="flex justify-center items-center gap-5 ">
-                <p>Already a member? </p>
-                <Link
-                  href="/sign-in"
-                  className="px-3 py-2 rounded-md bg-gray-800 text-white hover:bg-opacity-90 font-semibold"
-                >
-                  Sign In
-                </Link>
+            {!session ? (
+              <div className="space-x-4">
+                <div className="flex justify-center items-center gap-5">
+                  <Link
+                    href="/sign-up"
+                    className="px-3 py-2 rounded-md bg-gray-800 text-white hover:bg-opacity-90 font-semibold"
+                  >
+                    Sign Up
+                  </Link>
+                  <Link
+                    href="/sign-in"
+                    className="px-3 py-2 rounded-md bg-gray-800 text-white hover:bg-opacity-90 font-semibold"
+                  >
+                    Sign In
+                  </Link>
+                </div>
               </div>
             ) : (
               <div className="flex justify-center items-center gap-5">
-                <p>New to DevJourney? </p>
-                <Link
-                  href="/sign-up"
-                  className="px-3 py-2 rounded-md bg-gray-800 text-white hover:bg-opacity-90 font-semibold"
-                >
-                  Sign Up
-                </Link>
+                <p>
+                  Hello,{" "}
+                  <span className="font-quicksand font-semibold">
+                    {user.username}
+                  </span>
+                </p>
+                <ExitIcon
+                  className="cursor-pointer"
+                  onClick={() => {
+                    signOut({ callbackUrl: "/" });
+                  }}
+                />
               </div>
             )}
           </div>
         </div>
+
+        {/* Mobile menu */}
         <Separator />
         {isOpen && (
           <nav className="sm:hidden flex flex-col items-center py-5 gap-y-4 font-poppins">
@@ -94,6 +118,20 @@ export default function Navbar() {
                 </Link>
               </div>
             ))}
+            <div className="flex items-center gap-4 mt-4">
+              <Link
+                href="/sign-up"
+                className="px-4 py-2 rounded-md bg-gray-800 text-white hover:bg-opacity-90 font-semibold"
+              >
+                Sign Up
+              </Link>
+              <Link
+                href="/sign-in"
+                className="px-4 py-2 rounded-md bg-gray-800 text-white hover:bg-opacity-90 font-semibold"
+              >
+                Sign In
+              </Link>
+            </div>
           </nav>
         )}
       </div>

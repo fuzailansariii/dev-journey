@@ -78,7 +78,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flex justify-center mx-auto items-center w-full bg-slate-200 h-screen fixed overflow-hidden">
+    <div className="flex justify-center mx-auto items-center w-full bg-slate-200 h-screen">
       <div className="w-full sm:w-3/4  lg:w-2/5 bg-white mx-5 rounded-lg border shadow-lg px-2 py-10">
         <div className="flex flex-col text-center space-y-2 font-poppins">
           <h1 className="text-4xl font-semibold">

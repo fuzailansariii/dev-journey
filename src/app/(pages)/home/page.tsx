@@ -2,6 +2,7 @@
 
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { ExitIcon } from "@radix-ui/react-icons";
 
 export default function HomePage() {
   return (
@@ -11,7 +12,7 @@ export default function HomePage() {
         onClick={() => signOut({ callbackUrl: "/" })} // Redirect to the home page after sign-out
         className="mt-4"
       >
-        Sign Out
+        Sign Out <ExitIcon />
       </Button>
     </div>
   );

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Nunito, Poppins, Quicksand } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import ToasterProvider from "@/providers/ToastProvider";
+import { AuthProvider } from "./providers/AuthProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -36,10 +36,11 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${nunito.variable} ${quicksand.variable}`}
       >
-        <Navbar />
-        {children}
-        <ToasterProvider />
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          {children}
+          <ToasterProvider />
+        </AuthProvider>
       </body>
     </html>
   );
