@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { User } from "next-auth";
+import MobileMenu from "./MobileMenu";
+import { menuItems } from "@/utils/MenuItems";
 
 export default function Navbar() {
   // const pathname = usePathname();
@@ -17,11 +19,6 @@ export default function Navbar() {
   const pathname = usePathname();
 
   // Array of menu items for the navigation bar
-  const menuItems = [
-    { title: "Contact", link: "/contact" },
-    { title: "About", link: "/about" },
-    { title: "Resume", link: "/resume" },
-  ];
 
   // mobile menu control
   const [isOpen, setIsOpen] = useState(false);
@@ -108,32 +105,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         <Separator />
-        {isOpen && (
-          <nav className="sm:hidden flex flex-col items-center py-5 gap-y-4 font-poppins">
-            {menuItems.map((menu, index) => (
-              <div key={index}>
-                <Link href={menu.link} className="text-lg">
-                  {menu.title}
-                  <Separator />
-                </Link>
-              </div>
-            ))}
-            <div className="flex items-center gap-4 mt-4">
-              <Link
-                href="/sign-up"
-                className="px-4 py-2 rounded-md bg-gray-800 text-white hover:bg-opacity-90 font-semibold"
-              >
-                Sign Up
-              </Link>
-              <Link
-                href="/sign-in"
-                className="px-4 py-2 rounded-md bg-gray-800 text-white hover:bg-opacity-90 font-semibold"
-              >
-                Sign In
-              </Link>
-            </div>
-          </nav>
-        )}
+        {isOpen && <MobileMenu />}
       </div>
     </>
   );

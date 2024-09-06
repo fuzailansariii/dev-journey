@@ -3,6 +3,7 @@
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { ExitIcon } from "@radix-ui/react-icons";
+import MobileMenu from "@/components/MobileMenu";
 
 export default function HomePage() {
   return (
