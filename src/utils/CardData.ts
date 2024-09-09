@@ -27,7 +27,8 @@ export type IdentityCardType = {
   image: any;
   name: string;
   email: string;
-  icons: SocialIconType[];
+  language: string;
+  nationality: string;
 };
 
 // Projects Data
@@ -72,6 +73,7 @@ export const IdentityCardData: IdentityCardType[] = [
     title: "Full-Stack Developer",
     name: "Mohd Fuzail Ansari",
     email: "fuzailansarisecret@gmail.com",
-    icons: socialIcons,
+    language: "English, Hindi, Urdu",
+    nationality: "INDIAN",
   },
 ];

@@ -8,6 +8,8 @@ const IdentityCard: React.FC<IdentityCardType> = ({
   name,
   email,
   image,
+  language,
+  nationality,
 }) => {
   return (
     <div className="mx-5 py-8 px-3 border rounded-xl shadow-lg flex flex-col items-center bg-white">
@@ -18,7 +20,7 @@ const IdentityCard: React.FC<IdentityCardType> = ({
           className="h-52 w-52 object-contain rounded-full shadow-lg border-4 border-red-500"
         />
       </div>
-      <div className="font-nunito mt-2 flex flex-col items-center text-center">
+      <div className="font-nunito mt-2 flex flex-col items-center">
         <h1 className="md:text-4xl text-2xl font-extrabold text-gray-900">
           {name}
         </h1>
@@ -29,19 +31,8 @@ const IdentityCard: React.FC<IdentityCardType> = ({
         >
           {email}
         </a>
-        <div className="flex gap-8 text-3xl m-2 px-4 py-3 border rounded-2xl">
-          {socialIcons.map((Icon, index) => (
-            <Link
-              key={index}
-              href={Icon.socialIconlink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cursor-pointer text-gray-800 hover:scale-125 transition-transform duration-300"
-            >
-              <Icon.icon />
-            </Link>
-          ))}
-        </div>
+        <p>{language}</p>
+        <p>{nationality}</p>
       </div>
     </div>
   );

@@ -4,11 +4,11 @@ import {
   SiGithub,
   SiJavascript,
   SiMongodb,
+  SiNextdotjs,
   SiNodedotjs,
   SiReact,
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa6";
-import nextIcon from "@/assets/nextIcon.svg";
 
 export function OrbitingSkills() {
   const Icons = {
@@ -19,7 +19,7 @@ export function OrbitingSkills() {
     SiGithub,
     SiJavascript,
     FaJava,
-    nextIcon,
+    SiNextdotjs,
   };
   return (
     <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg">

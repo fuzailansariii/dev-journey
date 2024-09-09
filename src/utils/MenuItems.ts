@@ -11,6 +11,6 @@ type menuItemstype = {
 
 export const menuItems: menuItemstype[] = [
   { title: "Contact", link: "/contact", icon: MdOutlineAlternateEmail },
-  { title: "About", link: "/about", icon: SiAboutdotme },
+  { title: "Projects", link: "/projects", icon: SiAboutdotme },
   { title: "Resume", link: "/resume", icon: SiReaddotcv },
 ];
