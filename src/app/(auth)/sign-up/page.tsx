@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useDebounce } from "use-debounce";
 import { Loader2 } from "lucide-react";
+import prisma from "@/lib/prisma";
 
 export default function SignUp() {
   const router = useRouter();
@@ -20,7 +21,6 @@ export default function SignUp() {
   const [usernameMessage, setUsernameMessage] = useState("");
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmittingForm, setIsSubmittingForm] = useState(false);
-
   const [debouncedUsername] = useDebounce(username, 1000);
 
   useEffect(() => {
@@ -61,9 +61,15 @@ export default function SignUp() {
 
     try {
       const response = await axios.post<ApiResponse>("/api/auth/sign-up", data);
+
       toast.success("Registration Successfull, Please verify your email.");
+
+      //TODO: Will remove it after adding the DOMAIN and will send the Code through Email
+      toast(`Verification Code: ${response.data.verificationCode}`);
+
       reset();
       // console.log(response.data);
+
       router.replace(`/verify/${data.username}`);
       setIsSubmittingForm(false);
     } catch (error: any) {

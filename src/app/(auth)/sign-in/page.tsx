@@ -45,7 +45,7 @@ export default function SignIn() {
       }
     } else if (result?.ok) {
       toast.success("Login successfull");
-      router.replace("/home");
+      router.replace("/");
       setIsSubmittingForm(false);
     }
     reset();

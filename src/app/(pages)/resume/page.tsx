@@ -71,7 +71,7 @@ function Resume() {
               className="font-nunito font-semibold text-xl grid md:grid-cols-2 gap-x-5 gap-y-5"
             >
               {Education.map((item, index) => (
-                <Card key={index}>
+                <Card key={index} className="shadow-md">
                   <CardHeader>
                     <CardTitle>{item.college}</CardTitle>
                     <CardDescription>{item.course}</CardDescription>
@@ -87,13 +87,10 @@ function Resume() {
               {Skills.map((item, index) => (
                 <Card
                   key={index}
-                  className="p-5 flex items-start justify-center text-4xl"
+                  className="p-5 flex items-start justify-center text-4xl shadow-md"
                 >
                   <item.icon name={item.name} />
                 </Card>
-                // <div key={index}>
-                //   <item.icon name={item.name} />
-                // </div>
               ))}
             </Tabs.Content>
 

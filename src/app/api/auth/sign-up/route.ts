@@ -91,6 +91,9 @@ export async function POST(request: Request) {
       {
         success: true,
         message: "User registered successfully, Please verify your email.",
+
+        // will remove it after getting a domain for this app
+        verificationCode,
       },
       { status: 201 }
     );
